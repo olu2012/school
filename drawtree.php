@@ -1,9 +1,12 @@
 <?php
 session_start();
-include('/include/connect.php');
-include('/include/html_codes.php');
+include('include/connect.php');
+include('include/html_codes.php');
 $error_message='';
 $options='';
+if(!isset($_SESSION['user_id'])){
+        header('Location:login.php');
+}
 if(isset($_POST['submit']))
 {
    // $error_message='';
@@ -13,13 +16,13 @@ if(isset($_POST['submit']))
     //}
     //else if (ctype_alnum($_POST['firstname'])) {
     //$firstname=$_POST['firstname'];
-    echo 'olumi';
+   // echo 'olumi';
     $myInputs = $_POST['myInputs'];
 foreach ($myInputs as $eachInput) {
      echo $eachInput . "<br>";
 }
 //}
-    echo " Hola " ; 
+  //  echo " Hola " ; 
 //}
 
 }
@@ -46,21 +49,28 @@ foreach ($myInputs as $eachInput) {
     $total=$total + 1 * $multiplier;
      //echo $eachInput . "<br>";
 }
-echo $total;
+//echo $total;
 echo "<br>";
-echo $count;
+//echo $count;
 $overall=$count*3;
-$averagepercentage=$total/$count *100;
+$averagepercentage=$total/($overall)*100;
 if ($averagepercentage<=33){
     $colorcode='#000000';
+    $treeimage="treeactivecitizenbrown.jpg";
 }
-if ($averagepercentage<=66){
-     $colorcode='#ff00ff';
+if ($averagepercentage>33 && $averagepercentage<= 66){
+     $colorcode='#89e07b';
+     $treeimage="treeactivecitizenlightgreen.jpg";
 }
 if ($averagepercentage>66){
-    $colorcode='#00ff00';
+    $colorcode='#295223';
+    $treeimage="treeactivecitizendarkgreen.jpg";
 }
 
+if ($averagepercentage==0){
+    $colorcode='#fff';
+    $treeimage="treeblank.jpg";
+}
   // $colorcode='#00ff00';
 }
 ?>
@@ -116,16 +126,17 @@ context.strokeStyle = colorcode;
 context.fillStyle = "white";
 context.fill();
 
-
+//$averagepercentage
+var wordpercent ="<?php echo $averagepercentage; ?>";
 context.stroke();
 // draw circle
-context.globalAlpha = 0.5; // set global alpha
-context.beginPath();
-context.arc(359, 150, 70, 0, 2 * Math.PI, false);
-context.fillStyle = "red";
-context.fill();
+//context.globalAlpha = 0.5; // set global alpha
+//context.beginPath();
+//context.arc(359, 150, 70, 0, 2 * Math.PI, false);
+//context.fillStyle = "red";
+//context.fill();
 // part of the cloud
-context.globalAlpha=0.5;
+//context.globalAlpha=0.5;
 context.beginPath();
 context.moveTo(startX, startY);
 context.bezierCurveTo(startX - 40, startY + 20, startX - 40,
@@ -141,6 +152,44 @@ context.strokeStyle = colorcode;
 context.fillStyle = colorcode;
 context.fill();
 
+
+// rectangle
+var canvas = document.getElementById("myCanvas2");
+var context = canvas.getContext("2d");
+context.rect(canvas.width / 2 - 100, canvas.height / 2 -150,
+100, 350);
+context.fillStyle = "#0000ff";
+context.fill();
+context.lineWidth = 2;
+context.strokeStyle = "black";
+context.stroke();
+//inner rectangle
+
+var canvas = document.getElementById("myCanvas2");
+var context = canvas.getContext("2d");
+context.rect(canvas.width / 2 - 200, canvas.height / 2 -150,
+100, 350);
+context.fillStyle = "#0000ff";
+context.font = "40px sans-serif";
+context.fillText(wordpercent, 30, 80);
+//context.globalAlpha=0.5;
+context.fill();
+context.lineWidth = 2;
+context.strokeStyle = "black";
+context.stroke();
+//
+//third rectangle
+
+//var canvas = document.getElementById("myCanvas2");
+//var context = canvas.getContext("2d");
+//context.rect(canvas.width / 2 + 100, canvas.height / 2 -150,
+////100, 350);
+//context.fillStyle = "#0000ff";
+//context.fill();
+//context.lineWidth = 2;
+//context.strokeStyle = "black";
+//context.stroke();
+
 }
 </script>
          
@@ -153,7 +202,9 @@ context.fill();
             <section id="right_side">
                 
                 <div id="main" class="container">
-                    <h3>Answer the questions</h3>
+                    <h3></h3>
+                    <img src="images/<?php echo $treeimage?>" alt="images"><br/>
+                    <p></p> <br>
                     <form id="questionwithanswer" method="post" action="drawtree.php">
                    <?php echo $error_message; ?>
                     <div class="field2">
@@ -162,13 +213,17 @@ context.fill();
                        
                       
                         
-                        <p class="hint">20 characters maximum</p>
-                        <canvas id="myCanvas" width="700" height="450" style="border:1px
+                        <p class="hint"></p>
+                        <canvas id="myCanvas" width="700" height="400" style="border:1px
 solid black;">
 </canvas>
-                    <?php echo "Israel me"; ?>  
+                        <p></p> <br>
+                        
+                        <canvas id="myCanvas2" width="700" height="400" style="border:1px
+solid black;">
+</canvas>
                     </div>
-                    <input id="button" type="submit" class="button" default="Submit">
+                   
                     </form>
                    
                 
