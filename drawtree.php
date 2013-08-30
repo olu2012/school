@@ -129,14 +129,9 @@ context.fill();
 //$averagepercentage
 var wordpercent ="<?php echo $averagepercentage; ?>";
 context.stroke();
-// draw circle
-//context.globalAlpha = 0.5; // set global alpha
-//context.beginPath();
-//context.arc(359, 150, 70, 0, 2 * Math.PI, false);
-//context.fillStyle = "red";
-//context.fill();
-// part of the cloud
-//context.globalAlpha=0.5;
+
+
+
 context.beginPath();
 context.moveTo(startX, startY);
 context.bezierCurveTo(startX - 40, startY + 20, startX - 40,
@@ -151,7 +146,7 @@ context.lineWidth = 2;
 context.strokeStyle = colorcode;
 context.fillStyle = colorcode;
 context.fill();
-
+/*
 
 // rectangle
 var canvas = document.getElementById("myCanvas2");
@@ -177,20 +172,56 @@ context.fill();
 context.lineWidth = 2;
 context.strokeStyle = "black";
 context.stroke();
-//
-//third rectangle
 
-//var canvas = document.getElementById("myCanvas2");
-//var context = canvas.getContext("2d");
-//context.rect(canvas.width / 2 + 100, canvas.height / 2 -150,
-////100, 350);
-//context.fillStyle = "#0000ff";
-//context.fill();
-//context.lineWidth = 2;
-//context.strokeStyle = "black";
-//context.stroke();
+*/
+drawFilledRectangleFull(10,100);
+drawFilledRectanglePercent(250,100,wordpercent);
+writeThePercentile(wordpercent);
+};
 
-}
+function writeThePercentile(wordpercent){
+   var canvas=document.getElementById("myCanvas2");
+   var context=canvas.getContext("2d");
+   context.font = "20pt Calibri";
+   context.fillStyle = "black";
+  // align text horizontally center
+   context.textAlign = "center";
+  // align text vertically center
+   context.textBaseline = "middle";
+   wordpercent = wordpercent - wordpercent%1;
+   context.fillText(wordpercent+ "%", 290 ,310);
+	//context.strokeRect(300,20,80,200);
+ 
+    
+};
+
+function drawFilledRectangleFull(x1,y1){
+    
+	var canvas=document.getElementById("myCanvas2");
+      
+	var context=canvas.getContext("2d");
+	context.rect(x1, y1,100, 250);
+        context.fillStyle = "#8ED6FF";
+        context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        context.stroke();
+	
+	
+	};
+        function drawFilledRectanglePercent(x1,y1,wordpercent){
+	var canvas=document.getElementById("myCanvas2");
+	var context=canvas.getContext("2d");
+        var percentheight=wordpercent* 0.01*250;
+        	context.rect(x1, 250+y1-percentheight,100, percentheight);
+        context.fillStyle = "#8ED6FF";
+        context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        context.stroke();
+	
+	
+	};
 </script>
          
          
