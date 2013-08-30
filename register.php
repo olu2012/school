@@ -134,9 +134,18 @@ if(empty($_POST['lastname'])){
         }
     
 }
-function diplaytutor() {
+function displaytutor() {
+    $dropdown="";
+    $result=  mysql_query("select id ,firstname, lastname from tutor;") or die(mysql_error());
     
-    
+    while($row = mysql_fetch_assoc($result)) {
+
+  $dropdown .= "\r\n<option value='{$row['id']}'>{$row['firstname']} {$row['lastname']}</option>";
+
+}
+
+$dropdown .= "\r\n</select>";
+echo $dropdown;
 }
 
 
@@ -222,15 +231,11 @@ document.getElementById("username").value = first+"."+last;
                         <p class="hint">20 characters maximum</p>
                        </div>
                     <div class="field">
-                        <label for="form1">Form Tutor:*</label>
-                        <input type="text" class="input" id="form1" name="form1" maxlength="20"  required />
-                        <p class="hint">20 characters maximum</p>
+                        <label for="form1">Form Tutor:*</label><br>
+                        <select name="tutor" class="input" ><?php displaytutor() ?>
+                        
                        </div>
-                    <div class="field">
-                        <label for="tutor"> tutor:</label>
-                        <input type="text" class="input" id="tutor" name="tutor" maxlength="20" />
-                        <p class="hint">20 characters maximum</p>
-                       </div>
+                   
                     <div class="field">
                         <label for="homeaddress"> Home Address:</label>
                         <input type="text" class="input" id="homeaddress" name="homeaddress" maxlength="40" />
