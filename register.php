@@ -134,7 +134,12 @@ if(empty($_POST['lastname'])){
         }
     
 }
- 
+function diplaytutor() {
+    
+    
+}
+
+
 
 ?>
 
@@ -147,6 +152,22 @@ if(empty($_POST['lastname'])){
         <link rel="stylesheet" href="css/main.css">
          <link rel="stylesheet" href="css/form.css">
          <link rel="stylesheet" href="css/register.css">
+         
+         <script type="text/javascript" charset="utf-8">  
+             
+    function validatePass(p1, p2) {
+    if (p1.value != p2.value || p1.value == '' || p2.value == '') {
+        p2.setCustomValidity('Password incorrect');
+    } else {
+        p2.setCustomValidity('');
+    }
+}
+
+function updateUsername(){         
+first = document.getElementById("firstname").value;         
+last = document.getElementById("lastname").value;  
+document.getElementById("username").value = first+"."+last;     
+} </script>
     </head>
         <body>
         <div id="wrapper"><?php headerWithRegisterLinks()?>
@@ -158,21 +179,36 @@ if(empty($_POST['lastname'])){
                     <h3>Register</h3>
                    <?php echo $error_message; ?>
                     <div class="field">
-                        <label for="firstname"> First Name:</label>
-                        <input type="text" class="input" id="firstname" name="firstname" maxlength="20" />
+                        <label for="firstname"> First Name:*</label>
+                        <input type="text" class="input" id="firstname" name="firstname" maxlength="20" required onkeyup="updateUsername();" />
                         <p class="hint">20 characters maximum</p>
                         </div>
+                    
                     <div class="field">
-                        <label for="lastname"> Last Name:</label>
-                        <input type="text" class="input" id="lastname" name="lastname" maxlength="20" />
+                        <label for="lastname"> Middle Name:</label>
+                        <input type="text" class="input" id="middlename" name="middlename" maxlength="20" />
                         <p class="hint">20 characters maximum</p>
                        </div>
                     
-                    
+                    <div class="field">
+                        <label for="lastname"> Last Name:* </label>
+                        <input type="text" class="input" id="lastname" name="lastname" maxlength="20" required onkeyup="updateUsername();" />
+                        <p class="hint">20 characters maximum</p>
+                       </div>
+                    <div class="field">
+                        <label for="username"> Username:* </label>
+                        <input type="text" class="input" id="username" name="username" maxlength="20" required/>
+                        <p class="hint">20 characters maximum</p>
+                       </div>
+                    <div class="field">
+                        <label for="dateofbirth"> Date of Birth:* </label>
+                        <input type="date" class="input" id="dob" name="dob" maxlength="20" required/>
+                        <p class="hint">20 characters maximum</p>
+                       </div>
                     <div class="field">
                         <label for="sex"> Sex:</label>
                         <select name="sex" id="sex" class="input">
-                            <option value="">Select...</option>
+                          
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                           </select>
@@ -186,8 +222,8 @@ if(empty($_POST['lastname'])){
                         <p class="hint">20 characters maximum</p>
                        </div>
                     <div class="field">
-                        <label for="form1">Form:</label>
-                        <input type="text" class="input" id="form1" name="form1" maxlength="20" />
+                        <label for="form1">Form Tutor:*</label>
+                        <input type="text" class="input" id="form1" name="form1" maxlength="20"  required />
                         <p class="hint">20 characters maximum</p>
                        </div>
                     <div class="field">
@@ -200,6 +236,27 @@ if(empty($_POST['lastname'])){
                         <input type="text" class="input" id="homeaddress" name="homeaddress" maxlength="40" />
                         <p class="hint">40 characters maximum</p>
                        </div>
+                    
+                    <div class="field">
+                        <fieldset>
+                   <legend>Contact Details:</legend>  
+                        <label for="contactfullname"> Full Name:</label>
+                        <input type="text" class="input" id="contactfullname" name="contactfullname" maxlength="40" />
+                        <p class="hint">40 characters maximum</p>
+                        <label for="contactemail"> Email:</label>
+                        <input type="text" class="input" id="contactemail" name="contactemail" maxlength="40" />
+                        <p class="hint">40 characters maximum</p>
+                        
+                        <label for="contactnumber"> Contact Number:</label>
+                        <input type="text" class="input" id="contactnumber" name="contactnumber" maxlength="40" />
+                        <p class="hint">40 characters maximum</p>
+                        
+                        <input type="checkbox" class="input1" id="contactuser" name="contactuser" maxlength="40" /><label>Do you want to make this person a user</label>
+                        
+                        </fieldset>
+                       </div>
+                    
+                    
                     <div class="field">
                         <label for="postcode"> Post Code:</label>
                         <input type="text" class="input" id="postcode" name="postcode" maxlength="10" />
@@ -212,7 +269,12 @@ if(empty($_POST['lastname'])){
                        </div>
                     <div class="field">
                         <label for="password"> Password:</label>
-                        <input type="password" class="input" id="password" name="password" maxlength="20" />
+                        <input type="password" class="input" id="password" name="password" maxlength="20" required />
+                        <p class="hint">20 characters maximum</p>
+                       </div>
+                    <div class="field">
+                        <label for="confirmpassword">Confirm Password:*</label>
+                        <input type="password" class="input" id="confirmpassword" name="confirmpassword" maxlength="20" required onfocus="validatePass(document.getElementById('password'), this);" oninput="validatePass(document.getElementById('password'), this); />
                         <p class="hint">20 characters maximum</p>
                        </div>
                     <div class="field">
