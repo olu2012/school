@@ -82,3 +82,8 @@ a.active
     border: 1px solid #673695;
     width:250px;
 }
+.question{
+border: 1px solid #673695;
+font-size:13px;
+padding:8px;
+}
